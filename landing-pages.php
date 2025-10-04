@@ -237,13 +237,13 @@
                 <div class="option-box">
                     <h3 class="option-title">EMPLOYEE</h3>
                     <p class="option-description">Access your employee dashboard for schedules, payroll, and personal information.</p>
-                    <a href="#" class="btn">Employee Login</a>
+                    <a href="./admin-login.php" class="btn">Employee Login</a>
                 </div>
                 
                 <div class="option-box">
                     <h3 class="option-title">HR</h3>
                     <p class="option-description">Access the HR portal for employee management and administrative functions.</p>
-                    <a href="#" class="btn">HR Login</a>
+                    <a href="./employee-login.php" class="btn">HR Login</a>
                 </div>
             </div>
         </div>
