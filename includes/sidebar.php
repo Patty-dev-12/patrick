@@ -90,7 +90,7 @@
 
   <!-- Footer -->
   <div class="px-3 py-4 border-t border-white/20">
-    <a href="logout.php" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10">
+    <a href="../admin-logout.php" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5m0 6H3"/>
       </svg>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db.php';
+include_once 'config/db.php'; // Ensure this path is correct
 
 $error = "";
 
@@ -8,10 +8,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $employee_id = $_POST['employee_id'];
     $password = md5($_POST['password']); // MD5 just for example
 
-    $query = "SELECT * FROM employees WHERE employee_id='$employee_id' AND password='$password'";
-    $result = mysqli_query($conn, $query);
+    $stmt = $pdo->prepare("SELECT * FROM employees WHERE employee_id = :employee_id AND password = :password");
+    $stmt->bindParam(':employee_id', $employee_id);
+    $stmt->bindParam(':password', $password);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (mysqli_num_rows($result) == 1) {
+    if ($user) {
         $_SESSION['employee_id'] = $employee_id;
         header("Location: employee-dashboard.php");
         exit();
@@ -91,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <img src="assets/img/mainlogo.png" alt="HVH Logo">
         <h2>Employee Login</h2>
 
-        <form action="" method="POST">
+        <form method="POST">
             <div class="form-group">
                 <label for="employee_id">Employee ID</label>
                 <input type="text" name="employee_id" id="employee_id" required>
