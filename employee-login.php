@@ -5,21 +5,31 @@ include_once 'config/db.php'; // Ensure this path is correct
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $employee_id = $_POST['employee_id'];
-    $password = md5($_POST['password']); // MD5 just for example
+    $username = trim($_POST['employee_id']);
+    $password = $_POST['password'];
 
-    $stmt = $pdo->prepare("SELECT * FROM employees WHERE employee_id = :employee_id AND password = :password");
-    $stmt->bindParam(':employee_id', $employee_id);
-    $stmt->bindParam(':password', $password);
+    // Check user in hr_staff table
+    $stmt = $pdo->prepare("SELECT * FROM hr_staff WHERE email = :username AND name LIKE '%Admin%'");
+    $stmt->bindParam(':username', $username);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
-        $_SESSION['employee_id'] = $employee_id;
-        header("Location: employee-dashboard.php");
-        exit();
+        // For demo purposes, using simple password check
+        // In real application, use password_verify()
+        if ($password === "admin123") { // Default password for demo
+            $_SESSION['user_id'] = $user['hr_id'];
+            $_SESSION['username'] = $user['name'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['role'] = 'admin';
+            
+            header("Location: employee/employeedashboard.php");
+            exit;
+        } else {
+            $error = "Invalid username or password!";
+        }
     } else {
-        $error = "Invalid Employee ID or Password.";
+        $error = "Invalid username or password!";
     }
 }
 ?>
